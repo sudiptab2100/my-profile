@@ -1,19 +1,49 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 import { profile } from "../data/portfolio";
+import { cn } from "../lib/utils";
 
 export function Reveal({ children, delay = 0, y = 26, className = "" }) {
+  const reduce = useReducedMotion();
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={reduce ? false : { opacity: 0, y }}
+      whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>
+  );
+}
+
+// Frosted-glass surface wrapper (adds padding by default).
+export function GlassCard({
+  as: Component = "div",
+  className = "",
+  children,
+  ...props
+}) {
+  return (
+    <Component className={cn("glass p-6", className)} {...props}>
+      {children}
+    </Component>
+  );
+}
+
+// Dense bento grid container — collapses to a single column on mobile.
+export function BentoGrid({ className = "", children }) {
+  return <div className={cn("bento-grid", className)}>{children}</div>;
+}
+
+// A single bento tile. Pass col-/row-span utilities via className.
+export function BentoItem({ className = "", children, ...props }) {
+  return (
+    <div className={cn("glass p-6", className)} {...props}>
+      {children}
+    </div>
   );
 }
 

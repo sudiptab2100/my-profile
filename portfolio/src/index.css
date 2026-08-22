@@ -26,6 +26,25 @@
     @apply bg-accent text-primary;
   }
 
+  /* accessible keyboard focus */
+  a:focus-visible,
+  button:focus-visible,
+  [tabindex]:focus-visible {
+    @apply rounded-lg outline-none ring-2 ring-accent/70 ring-offset-2 ring-offset-primary;
+  }
+
+  /* respect reduced-motion globally (framer-motion handled per-component) */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   /* scrollbar */
   ::-webkit-scrollbar {
     width: 10px;
@@ -53,6 +72,12 @@
     @apply text-[26px] leading-tight font-semibold;
   }
 
+  /* mint→cyan gradient text (add animate-gradient-pan for motion) */
+  .text-gradient {
+    @apply bg-gradient-to-r from-accent via-accent2 to-accent bg-clip-text text-transparent;
+    background-size: 200% auto;
+  }
+
   /* section heading (accent-dot kicker) */
   .kicker {
     @apply inline-flex items-center gap-2 font-mono text-sm uppercase tracking-[0.25em] text-accent;
@@ -66,26 +91,51 @@
   .btn-outline {
     @apply inline-flex h-[56px] items-center justify-center gap-2 rounded-full border border-accent px-8
       font-mono text-sm font-semibold uppercase tracking-[2px] text-accent
-      transition-all duration-300 hover:bg-accent hover:text-primary;
+      transition-all duration-300 hover:bg-accent hover:text-primary hover:shadow-glow;
   }
   .btn-solid {
     @apply inline-flex h-[52px] items-center justify-center gap-2 rounded-full bg-accent px-7
-      font-semibold text-primary transition-all duration-300 hover:bg-accent-hover;
+      font-semibold text-primary transition-all duration-300 hover:bg-accent-hover hover:shadow-glow;
   }
 
   /* circular social icon */
   .social-ring {
     @apply flex h-11 w-11 items-center justify-center rounded-full border border-accent text-lg text-accent
-      transition-all duration-300 hover:bg-accent hover:text-primary;
+      transition-all duration-300 hover:bg-accent hover:text-primary hover:shadow-glow;
   }
 
-  /* generic card */
+  /* frosted-glass surface — the core of the redesign */
+  .glass {
+    @apply relative rounded-3xl border border-white/10 bg-white/[0.045] shadow-glass backdrop-blur-xl;
+  }
+  /* hairline highlight along the top edge */
+  .glass::before {
+    content: "";
+    @apply pointer-events-none absolute inset-x-0 top-0 h-px rounded-t-3xl bg-gradient-to-r from-transparent via-white/25 to-transparent;
+  }
+  .glass-strong {
+    @apply relative rounded-3xl border border-white/10 bg-[#16161c]/85 shadow-glass-lg backdrop-blur-2xl;
+  }
+
+  /* generic card — now a frosted glass surface */
   .card {
-    @apply rounded-2xl border border-white/10 bg-[#16161c] p-6 transition-colors duration-300 hover:border-accent/60;
+    @apply relative rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-glass backdrop-blur-xl
+      transition-all duration-300 hover:border-accent/50 hover:bg-white/[0.06];
+  }
+
+  /* bento grid: dense auto-flow tiles that collapse to one column on mobile */
+  .bento-grid {
+    @apply grid grid-flow-dense grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4;
   }
 
   .chip {
-    @apply rounded-lg bg-white/[0.04] px-3 py-1.5 text-sm text-white/80 ring-1 ring-white/10;
+    @apply inline-flex items-center gap-1.5 rounded-lg bg-white/[0.05] px-3 py-1.5 text-sm text-white/80 ring-1 ring-white/10
+      transition-colors duration-200 hover:text-white hover:ring-accent/40;
+  }
+
+  /* subtle gradient section divider */
+  .divider {
+    @apply mx-auto h-px w-full max-w-5xl bg-gradient-to-r from-transparent via-white/10 to-transparent;
   }
 }
 
@@ -128,5 +178,25 @@
   }
   .text-glow {
     text-shadow: 0 0 24px rgba(0, 255, 153, 0.35);
+  }
+
+  /* mouse-follow spotlight — set --x/--y (in px) on the element */
+  .spotlight-surface::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background: radial-gradient(
+      440px circle at var(--x, 50%) var(--y, 50%),
+      rgba(0, 255, 153, 0.16),
+      rgba(18, 216, 255, 0.06) 40%,
+      transparent 65%
+    );
+    pointer-events: none;
+  }
+  .spotlight-surface:hover::after {
+    opacity: 1;
   }
 }

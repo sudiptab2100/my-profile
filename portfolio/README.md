@@ -7,15 +7,17 @@ A modern, dark‑themed developer portfolio built with **React + Vite**, styled 
 
 ## Design
 
-- Deep charcoal background (`#1c1c22`) with a bright mint accent (`#00ff99`)
-- Grid hero with a radial mask + an avatar framed by a rotating dashed ring
-- Rounded‑full outline buttons and circular social icons that fill on hover
-- Animated page‑load "stairs" transition, scroll reveals and stat counters
-- Fully responsive with a mobile nav drawer
+- Premium **bento + glassmorphism** system on a deep charcoal background (`#1c1c22`)
+- Mint primary accent (`#00ff99`) with a cyan secondary (`#12d8ff`); mint→cyan gradient type
+- Frosted glass surfaces with hairline highlights, soft glows and mouse‑follow **spotlight** cards
+- Layered aurora background (breathing glows, dot grid, film grain, vignette)
+- Sticky floating‑glass navbar with **scroll‑spy** active link + top **scroll‑progress** bar
+- Animated page‑load "stairs" transition, scroll reveals, stat counters, back‑to‑top button
+- Fully responsive with a glass mobile nav drawer · honours `prefers-reduced-motion`
 
 ## Sections
 
-Hero · Stats · Experience (timeline) · Skills · Projects · Education,
+Hero · Stats · About · Experience (timeline) · Skills · Projects · Education,
 Achievements & Publications · Contact · Footer.
 
 ## Getting started
@@ -47,14 +49,19 @@ The résumé PDF is served from `public/resume-twocolumn.pdf`.
 ```
 src/
 ├── data/portfolio.js      # all content
+├── lib/
+│   ├── utils.js           # cn() class helper
+│   └── hooks.js           # useScrollSpy, useIsScrolled
 ├── components/
-│   ├── ui.jsx             # Reveal, Section, SectionHeading, Socials, Counter
+│   ├── ui.jsx             # Reveal, Section, SectionHeading, Socials, Counter, GlassCard, Bento*
+│   ├── aceternity/        # spotlight-card, moving-border, background-gradient, …
 │   ├── Stairs.jsx         # page-load transition
-│   ├── Header.jsx  Hero.jsx  Stats.jsx
+│   ├── ScrollProgress.jsx  ScrollToTop.jsx
+│   ├── Header.jsx  Hero.jsx  Stats.jsx  About.jsx
 │   ├── Experience.jsx  Skills.jsx  Projects.jsx
 │   ├── Education.jsx  Contact.jsx  Footer.jsx
 ├── App.jsx                # composes the sections
-└── index.css              # Tailwind + design tokens
+└── index.css              # Tailwind + design tokens (glass, bento, gradient, spotlight)
 ```
 
 ---
