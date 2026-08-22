@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  * {
+    @apply border-white/10;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-primary text-white font-sans leading-loose antialiased;
+  }
+
+  ::selection {
+    @apply bg-accent text-primary;
+  }
+
+  /* scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #16161c;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2a2a33;
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3a3a44;
+  }
+}
+
+@layer components {
+  .h1 {
+    @apply text-[42px] leading-[1.1] font-bold sm:text-[52px] xl:text-[74px];
+  }
+  .h2 {
+    @apply text-[32px] leading-tight font-bold sm:text-[42px];
+  }
+  .h3 {
+    @apply text-[26px] leading-tight font-semibold;
+  }
+
+  /* section heading (accent-dot kicker) */
+  .kicker {
+    @apply inline-flex items-center gap-2 font-mono text-sm uppercase tracking-[0.25em] text-accent;
+  }
+  .kicker::before {
+    content: "";
+    @apply inline-block h-px w-8 bg-accent;
+  }
+
+  /* rounded-full outline button that fills with accent on hover */
+  .btn-outline {
+    @apply inline-flex h-[56px] items-center justify-center gap-2 rounded-full border border-accent px-8
+      font-mono text-sm font-semibold uppercase tracking-[2px] text-accent
+      transition-all duration-300 hover:bg-accent hover:text-primary;
+  }
+  .btn-solid {
+    @apply inline-flex h-[52px] items-center justify-center gap-2 rounded-full bg-accent px-7
+      font-semibold text-primary transition-all duration-300 hover:bg-accent-hover;
+  }
+
+  /* circular social icon */
+  .social-ring {
+    @apply flex h-11 w-11 items-center justify-center rounded-full border border-accent text-lg text-accent
+      transition-all duration-300 hover:bg-accent hover:text-primary;
+  }
+
+  /* generic card */
+  .card {
+    @apply rounded-2xl border border-white/10 bg-[#16161c] p-6 transition-colors duration-300 hover:border-accent/60;
+  }
+
+  .chip {
+    @apply rounded-lg bg-white/[0.04] px-3 py-1.5 text-sm text-white/80 ring-1 ring-white/10;
+  }
+}
+
+@layer utilities {
+  .bg-grid {
+    background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.045) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+  .mask-radial {
+    -webkit-mask-image: radial-gradient(
+      ellipse at center,
+      black 10%,
+      transparent 75%
+    );
+    mask-image: radial-gradient(ellipse at center, black 10%, transparent 75%);
+  }
+  .text-glow {
+    text-shadow: 0 0 24px rgba(0, 255, 153, 0.35);
+  }
+}
