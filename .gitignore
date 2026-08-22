@@ -1,0 +1,32 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.lof
+*.lot
+*.nav
+*.snm
+*.vrb
+*.xdv
+
+# Tectonic
+*.tectonic-cache/
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
