@@ -1,0 +1,259 @@
+%==============================================================================
+%  Sudipta Basak — Technical Resume (Two-Column / Sidebar Layout)
+%  Full-width header, then a narrow sidebar (Skills / Education / Achievements)
+%  beside a wide column (Experience / Projects).
+%  Compile with:  tectonic resume-twocolumn.tex     (recommended)
+%             or:  pdflatex resume-twocolumn.tex     (run twice)
+%  Note: two-column layouts can confuse some ATS parsers — prefer the
+%        single-column resume.tex for online job-portal submissions.
+%==============================================================================
+\documentclass[letterpaper,10pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\usepackage{xcolor}
+\usepackage{paracol}
+\usepackage{iftex}
+
+\ifPDFTeX
+  \input{glyphtounicode}
+\fi
+
+% ---------- Page geometry ----------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\addtolength{\oddsidemargin}{-0.65in}
+\addtolength{\evensidemargin}{-0.65in}
+\addtolength{\textwidth}{1.29in}
+\addtolength{\topmargin}{-0.8in}
+\addtolength{\textheight}{1.6in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\definecolor{accent}{HTML}{1F4E79}
+\definecolor{sidebarbg}{HTML}{F2F5F9}
+
+% ---------- Section formatting ----------
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large\color{accent}
+}{}{0em}{}[\color{accent}\titlerule \vspace{-6pt}]
+
+\ifPDFTeX
+  \pdfgentounicode=1
+\fi
+
+% ---------- Custom commands (use \linewidth so they adapt to column width) ----------
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\linewidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\linewidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.15in]}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-4pt}}
+
+% ---------- Sidebar section (compact, list-style) ----------
+\newcommand{\sideheading}[1]{%
+  {\vspace{2pt}\scshape\large\color{accent}#1}\\[-4pt]
+  {\color{accent}\rule{\linewidth}{0.6pt}}\\[-2pt]
+}
+
+%==============================================================================
+\begin{document}
+
+% ---------- Full-width Heading ----------
+\begin{center}
+    {\Huge \scshape Sudipta Basak} \\ \vspace{3pt}
+    \small
+    \faPhone* \; +91 86175 98493 \quad
+    \faEnvelope[regular] \; \href{mailto:sudiptab2100@gmail.com}{sudiptab2100@gmail.com} \quad
+    \faMapMarker* \; West Bengal, India \quad
+    \faLinkedin \; \href{https://linkedin.com/in/sudiptab2100}{in/sudiptab2100} \quad
+    \faGithub \; \href{https://github.com/sudiptab2100}{sudiptab2100}
+\end{center}
+\vspace{-2pt}
+{\color{accent}\rule{\textwidth}{1.1pt}}
+\vspace{4pt}
+
+% ---------- Two columns ----------
+\columnratio{0.34}
+\setlength{\columnsep}{22pt}
+\begin{paracol}{2}
+
+% ==================== LEFT SIDEBAR ====================
+\small
+\vspace*{12pt}
+
+\sideheading{Technical Skills}
+\textbf{Languages}\\
+C/C++, Java, Python, Kotlin, JavaScript, TypeScript, Rust, Solidity
+\vspace{4pt}
+
+\textbf{Backend \& Data}\\
+Spring Boot, Micronaut, REST APIs, GraphQL, Kafka, Redis, Spring Batch, PostgreSQL, Couchbase, DB2
+\vspace{4pt}
+
+\textbf{Blockchain \& ZK}\\
+Solidity, Foundry, Truffle/Hardhat, Circom \& SnarkJS, ZoKrates, Waku, IPFS, Web3.py
+\vspace{4pt}
+
+\textbf{Tools \& Platforms}\\
+Git, Docker, VSCode, IntelliJ IDEA, PyCharm, GitHub Copilot, Gen AI, Linux, macOS, Windows
+\vspace{4pt}
+
+\textbf{Foundations}\\
+Data Structures \& Algorithms, OOP, Cryptography, Problem Solving
+\vspace{8pt}
+
+\sideheading{Education}
+\textbf{IIT Jammu}\\
+\textit{\small M.Tech, Computer Science \& Engineering}\\
+\textit{\small Minor: Information Security}\\
+{\small CGPA 8.39 \textbullet\ 2024}
+\vspace{6pt}
+
+\textbf{UEM, Kolkata}\\
+\textit{\small B.Tech, Computer Science \& Engineering}\\
+{\small CGPA 8.50 \textbullet\ 2021}
+\vspace{8pt}
+
+\sideheading{Achievements}
+\textbf{Aptos Winter School \& Hackathon}\\
+Built \emph{CrysPay} (crypto transfers via phone numbers); 3rd of 5 finalists; \$5,000 grant from the Aptos Foundation.
+\vspace{4pt}
+
+\textbf{Amex GrowthHack'25}\\
+Top-5 finalist team out of 500+ worldwide.
+\vspace{4pt}
+
+\textbf{Freelance Blockchain Developer}\\
+Clients across India, the US, the UK, and Dubai.
+\vspace{8pt}
+
+\sideheading{Publications}
+\href{https://link.springer.com/chapter/10.1007/978-3-031-57916-5_33}{\textit{Privacy-Preserving Location-Based Services: A DQN Algorithmic Perspective} \textcolor{accent}{[Springer]}}
+\vspace{3pt}
+
+\href{https://arxiv.org/pdf/2407.18085}{\textit{On the Design of Ethereum Data Availability Sampling: A Comprehensive Simulation Study} \textcolor{accent}{[arXiv]}}
+
+% ==================== RIGHT MAIN COLUMN ====================
+\switchcolumn
+
+\section{Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {American Express}{Aug 2024 -- Present}
+      {Software Developer I}{Gurgaon, India}
+      \resumeItemListStart
+        \resumeItem{Migrated card privacy-preference data from legacy Mainframe/DB2 to a modern Couchbase, Java, and Spring Boot stack.}
+        \resumeItem{Modernized internal Lookup Tables, transitioning from Mainframe/DB2 to Java and GraphQL-based services.}
+        \resumeItem{Built data-processing workflows leveraging Redis, Kafka, Spring Batch, and PostgreSQL.}
+        \resumeItem{Improved code quality and observability via structured logging of events and exceptions across applications.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Nethermind}{Jun 2024 -- Aug 2024}
+      {Blockchain Developer \& Researcher Intern}{London, UK (Remote)}
+      \resumeItemListStart
+        \resumeItem{Co-developed FRIDA, a FRI-commitment-scheme-based Data Availability (DA) layer for blockchains.}
+        \resumeItem{Built a Rust CLI to drive the FRIDA proof-of-concept and authored Rust test suites validating it.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Status}{Feb 2024 -- Aug 2024}
+      {R\&D Engineer Intern}{Zug, Switzerland (Remote)}
+      \resumeItemListStart
+        \resumeItem{Contributed to a Data Availability Sampling (DAS) research project in collaboration with the Ethereum Foundation.}
+        \resumeItem{Developed a Python simulator modeling large-scale distributed Ethereum nodes to analyze data sharding.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Pegasystems}{Jun 2023 -- Dec 2023}
+      {Software Engineer Intern}{Hyderabad, India}
+      \resumeItemListStart
+        \resumeItem{Integrated Meta's open-source LLaMA 2 LLM with Pega Launchpad to assist users in authoring expressions.}
+        \resumeItem{Curated an expression-examples dataset and applied vector embeddings to fine-tune the LLaMA 2 13B model, improving domain-specific accuracy.}
+        \resumeItem{Exposed the model through a Kotlin (Micronaut) REST API and containerized the application with Docker.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+\section{Projects}
+    \resumeSubHeadingListStart
+
+      \resumeSubheading
+          {\href{https://github.com/sudiptab2100/WhisUp3}{WhisUp3 — Decentralised Anonymous Feedback \textcolor{accent}{\faGithub}}}{Jan 2024 -- Feb 2024}
+          {ReactJS, TypeScript, Waku, MetaMask}{}
+          \resumeItemListStart
+            \resumeItem{Built a decentralised anonymous feedback platform on the Waku communication protocol.}
+            \resumeItem{Enabled anyone to receive encrypted, anonymous messages on their public Ethereum address.}
+            \resumeItem{Secured messages with public-key encryption and MetaMask-based private-key decryption.}
+          \resumeItemListEnd
+
+      \resumeSubheading
+          {\href{https://github.com/sudiptab2100/zkSNARK-Auth-JS}{ZK Authentication \textcolor{accent}{\faGithub}}}{Dec 2023 -- Feb 2024}
+          {Solidity, Groth16, ZoKrates}{}
+          \resumeItemListStart
+            \resumeItem{Implemented zkSNARK (Groth16) on-chain authentication for EVM smart contracts.}
+            \resumeItem{Used the ZoKrates toolbox and zokrates.js for proof generation and verification.}
+            \resumeItem{Authenticated users via zero-knowledge proof of knowledge of a hash preimage.}
+          \resumeItemListEnd
+
+      \resumeSubheading
+          {\href{https://github.com/sudiptab2100/Wild-Storage}{Wild-Storage \textcolor{accent}{\faGithub}}}{Feb 2023 -- Jan 2024}
+          {Python, C++, Docker}{}
+          \resumeItemListStart
+            \resumeItem{Engineered a tool using YouTube as unlimited file storage by encoding file binaries as black/white pixels and decoding videos to restore files.}
+            \resumeItem{Devised an encoding scheme resilient to YouTube's video compression to prevent data loss.}
+            \resumeItem{Ported hot paths to C++ (wrapped in Python) for a 3x speedup; shipped a CLI and Dockerfile.}
+          \resumeItemListEnd
+
+      \resumeSubheading
+          {\href{https://github.com/sudiptab2100/PancakeSwapSnippingBot}{PancakeSwap Sniping Bot \textcolor{accent}{\faGithub}}}{2021}
+          {Python, Web3.py, Telethon}{}
+          \resumeItemListStart
+            \resumeItem{Built a bot to automate cryptocurrency trading on EVM-based AMMs, sourcing Telegram signals via Telethon and executing on-chain trades through Web3.py.}
+          \resumeItemListEnd
+
+    \resumeSubHeadingListEnd
+
+\end{paracol}
+
+\end{document}
