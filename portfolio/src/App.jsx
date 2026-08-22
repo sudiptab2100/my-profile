@@ -1,4 +1,5 @@
 import Stairs from "./components/Stairs";
+import Background from "./components/Background";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Stats from "./components/Stats";
@@ -12,6 +13,7 @@ import Footer from "./components/Footer";
 export default function App() {
   return (
     <>
+      <Background />
       <Stairs />
       <Header />
       <main className="overflow-hidden">

@@ -37,6 +37,10 @@ export default {
         scroll: {
           to: { transform: "translate(calc(-50% - 0.5rem))" },
         },
+        breath: {
+          "0%, 100%": { opacity: "0.4", transform: "scale(1)" },
+          "50%": { opacity: "0.85", transform: "scale(1.12)" },
+        },
       },
       animation: {
         spinRing: "spinRing 22s linear infinite",
@@ -44,6 +48,7 @@ export default {
         floaty: "floaty 6s ease-in-out infinite",
         scroll:
           "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
+        breath: "breath 14s ease-in-out infinite",
       },
     },
   },

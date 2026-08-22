@@ -47,12 +47,6 @@ function Avatar() {
 export default function Hero() {
   return (
     <section id="home" className="relative min-h-screen overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 bg-grid mask-radial opacity-80" />
-      <div
-        className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-accent/10 blur-[120px]"
-        aria-hidden="true"
-      />
-
       <div className="container relative mx-auto flex min-h-screen flex-col-reverse items-center justify-center gap-10 pb-20 pt-32 xl:flex-row xl:justify-between xl:gap-6 xl:pb-0 xl:pt-0">
         <motion.div
           className="text-center xl:text-left"
