@@ -13,8 +13,8 @@ export const profile = {
   location: "Gurgaon, India",
   email: "sudiptab2100@gmail.com",
   phone: "+91 86175 98493",
-  resume: "/resume-twocolumn.pdf",
-  avatar: "/profile.webp",
+  resume: `${import.meta.env.BASE_URL}resume-twocolumn.pdf`,
+  avatar: `${import.meta.env.BASE_URL}profile.webp`,
   socials: {
     github: "https://github.com/sudiptab2100",
     linkedin: "https://linkedin.com/in/sudiptab2100",
