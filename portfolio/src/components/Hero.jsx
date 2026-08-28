@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { FiDownload } from "react-icons/fi";
+import { FiDownload, FiBriefcase } from "react-icons/fi";
 import {
   SiSolidity,
   SiEthereum,
@@ -8,6 +8,7 @@ import {
   SiPython,
   SiRust,
 } from "react-icons/si";
+import { FaGraduationCap } from "react-icons/fa";
 import { profile } from "../data/portfolio";
 import { Socials } from "./ui";
 import { TextGenerateEffect } from "./aceternity/text-generate-effect";
@@ -193,6 +194,26 @@ export default function Hero() {
             </span>
           </h1>
 
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 xl:justify-start">
+            <span className="inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.05] py-1.5 pl-2 pr-4 backdrop-blur-xl transition-colors duration-300 hover:border-white/20">
+              <span className="flex h-7 w-7 flex-none items-center justify-center rounded-full bg-gradient-to-br from-accent/25 to-accent2/15 text-accent ring-1 ring-accent/30">
+                <FiBriefcase className="text-[15px]" />
+              </span>
+              <span className="text-[15px] font-semibold tracking-tight text-white text-glow">
+                American Express
+              </span>
+            </span>
+
+            <span className="inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.05] py-1.5 pl-2 pr-4 backdrop-blur-xl transition-colors duration-300 hover:border-white/20">
+              <span className="flex h-7 w-7 flex-none items-center justify-center rounded-full bg-gradient-to-br from-accent/25 to-accent2/15 text-accent ring-1 ring-accent/30">
+                <FaGraduationCap className="text-[15px]" />
+              </span>
+              <span className="text-[15px] font-semibold tracking-tight text-white text-glow">
+                IIT Jammu
+              </span>
+            </span>
+          </div>
+
           <RotatingTagline />
 
           <TextGenerateEffect
@@ -223,7 +244,7 @@ export default function Hero() {
       </div>
 
       <motion.a
-        href="#about"
+        href="#experience"
         aria-label="Scroll to content"
         style={{ x: "-50%" }}
         initial={{ opacity: 0 }}

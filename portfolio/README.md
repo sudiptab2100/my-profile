@@ -17,7 +17,7 @@ A modern, dark‑themed developer portfolio built with **React + Vite**, styled 
 
 ## Sections
 
-Hero · Stats · About · Experience (timeline) · Skills · Projects · Education,
+Hero · Stats · Experience (timeline) · Skills · Projects · Education,
 Achievements & Publications · Contact · Footer.
 
 ## Getting started
@@ -57,7 +57,7 @@ src/
 │   ├── aceternity/        # spotlight-card, moving-border, background-gradient, …
 │   ├── Stairs.jsx         # page-load transition
 │   ├── ScrollProgress.jsx  ScrollToTop.jsx
-│   ├── Header.jsx  Hero.jsx  Stats.jsx  About.jsx
+│   ├── Header.jsx  Hero.jsx  Stats.jsx
 │   ├── Experience.jsx  Skills.jsx  Projects.jsx
 │   ├── Education.jsx  Contact.jsx  Footer.jsx
 ├── App.jsx                # composes the sections

@@ -7,9 +7,9 @@ export const profile = {
   last: "Basak",
   handle: "sudiptab2100",
   role: "Software Engineer",
-  tagline: "Backend • Blockchain • Zero-Knowledge",
+  tagline: "Backend • Blockchain • Distributed Systems",
   pitch:
-    "Pragmatic, delivery-oriented engineer building reliable backend, blockchain and zero-knowledge systems. Currently at American Express.",
+    "Pragmatic, delivery-oriented engineer building reliable backend, blockchain and distributed systems.",
   location: "Gurgaon, India",
   email: "sudiptab2100@gmail.com",
   phone: "+91 86175 98493",

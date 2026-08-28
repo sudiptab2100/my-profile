@@ -4,7 +4,6 @@ import { Socials } from "./ui";
 
 const LINKS = [
   { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
   { name: "Experience", href: "#experience" },
   { name: "Skills", href: "#skills" },
   { name: "Projects", href: "#projects" },
