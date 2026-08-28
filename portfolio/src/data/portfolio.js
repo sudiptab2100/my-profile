@@ -155,6 +155,20 @@ export const education = [
     score: "CGPA 8.50",
     year: "2021",
   },
+  {
+    school: "Paruldanga Nasaratpur High School",
+    degree: "Higher Secondary (PCMB)",
+    extra: "",
+    score: "85%",
+    year: "2017",
+  },
+  {
+    school: "Nabadwip Bakultala High School",
+    degree: "Secondary",
+    extra: "",
+    score: "81.1%",
+    year: "2015",
+  },
 ];
 
 export const achievements = [

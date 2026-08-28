@@ -24,8 +24,6 @@ const stackIcons = {
 };
 
 export default function Projects() {
-  const total = projects.length;
-
   return (
     <Section id="projects">
       <SectionHeading
@@ -34,21 +32,10 @@ export default function Projects() {
         sub="Decentralised apps, zero-knowledge tooling and systems experiments."
       />
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2">
         {projects.map((p, i) => {
-          const featured = i === 0;
-          // Canonical 4-project layout: the last tile becomes a full-width banner
-          // so the featured 2×2 tile pairs cleanly with two stacked tiles + a base row.
-          const banner = total === 4 && i === total - 1;
-          const span = featured
-            ? "md:col-span-2 xl:col-span-2 xl:row-span-2"
-            : banner
-              ? "md:col-span-2 xl:col-span-3"
-              : "";
-          const points = featured ? p.points : p.points.slice(0, 2);
-
           return (
-            <Reveal key={p.name} delay={i * 0.06} className={`h-full ${span}`}>
+            <Reveal key={p.name} delay={i * 0.06} className="h-full">
               <SpotlightCard
                 as="a"
                 href={p.url}
@@ -57,20 +44,9 @@ export default function Projects() {
                 aria-label={`${p.name} on GitHub`}
                 className="group glass block h-full transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:bg-white/[0.06] hover:shadow-glass-lg"
               >
-                {featured && (
-                  <div
-                    aria-hidden
-                    className="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full bg-accent/10 blur-3xl"
-                  />
-                )}
-
                 <div className="relative z-10 flex h-full flex-col p-6">
                   <div className="flex items-start justify-between gap-4">
-                    <span
-                      className={`flex flex-none items-center justify-center rounded-2xl bg-gradient-to-br from-accent/20 to-accent2/10 text-accent ring-1 ring-accent/30 transition-all duration-300 group-hover:shadow-glow group-hover:ring-accent/60 ${
-                        featured ? "h-12 w-12 text-2xl" : "h-11 w-11 text-xl"
-                      }`}
-                    >
+                    <span className="flex h-11 w-11 flex-none items-center justify-center rounded-2xl bg-gradient-to-br from-accent/20 to-accent2/10 text-xl text-accent ring-1 ring-accent/30 transition-all duration-300 group-hover:shadow-glow group-hover:ring-accent/60">
                       <FiGithub aria-hidden />
                     </span>
                     <FiArrowUpRight
@@ -79,30 +55,15 @@ export default function Projects() {
                     />
                   </div>
 
-                  {featured && (
-                    <span className="mt-5 inline-flex w-fit items-center gap-2 rounded-full bg-accent/10 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.2em] text-accent ring-1 ring-accent/25">
-                      <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-accent" />
-                      Featured
-                    </span>
-                  )}
-
-                  <h3
-                    className={`font-semibold text-white transition-colors group-hover:text-accent ${
-                      featured ? "mt-4 text-2xl sm:text-3xl" : "mt-5 text-xl"
-                    }`}
-                  >
+                  <h3 className="mt-5 text-xl font-semibold text-white transition-colors group-hover:text-accent">
                     {p.name}
                   </h3>
                   <span className="mt-1 font-mono text-xs uppercase tracking-widest text-white/40">
                     {p.period}
                   </span>
 
-                  <ul
-                    className={`mt-4 flex-1 space-y-2 text-sm ${
-                      featured ? "text-white/70" : "text-white/65"
-                    }`}
-                  >
-                    {points.map((pt, idx) => (
+                  <ul className="mt-4 flex-1 space-y-2 text-sm text-white/70">
+                    {p.points.map((pt, idx) => (
                       <li key={idx} className="flex gap-2">
                         <span className="mt-2 h-1 w-1 flex-none rounded-full bg-accent" />
                         <span>{pt}</span>

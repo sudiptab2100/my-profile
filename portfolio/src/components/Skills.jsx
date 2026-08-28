@@ -36,13 +36,13 @@ const mid = Math.ceil(allTech.length / 2);
 const rowA = allTech.slice(0, mid);
 const rowB = allTech.slice(mid);
 
-// Category → Feather icon + asymmetric bento span (6-col grid at xl).
+// Category → Feather icon (uniform 2-column grid).
 const groupMeta = {
-  Languages: { icon: <FiCode />, span: "xl:col-span-2" },
-  "Backend & Data": { icon: <FiServer />, span: "xl:col-span-4" },
-  "Blockchain & ZK": { icon: <FiLink />, span: "xl:col-span-2" },
-  "Tools & Platforms": { icon: <FiTool />, span: "xl:col-span-4" },
-  Foundations: { icon: <FiLayers />, span: "md:col-span-2 xl:col-span-6" },
+  Languages: { icon: <FiCode /> },
+  "Backend & Data": { icon: <FiServer /> },
+  "Blockchain & ZK": { icon: <FiLink /> },
+  "Tools & Platforms": { icon: <FiTool /> },
+  Foundations: { icon: <FiLayers /> },
 };
 
 // Tech → brand logo. Only verified react-icons/si exports; anything absent
@@ -107,11 +107,16 @@ export default function Skills() {
         </div>
       </Reveal>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {groups.map(([group, items], i) => {
-          const meta = groupMeta[group] ?? { icon: <FiCode />, span: "" };
+          const meta = groupMeta[group] ?? { icon: <FiCode /> };
+          const fillLast = groups.length % 2 === 1 && i === groups.length - 1;
           return (
-            <Reveal key={group} delay={i * 0.06} className={`${meta.span} h-full`}>
+            <Reveal
+              key={group}
+              delay={i * 0.06}
+              className={`${fillLast ? "md:col-span-2" : ""} h-full`}
+            >
               <SpotlightCard className="card group flex h-full flex-col">
                 <div className="mb-5 flex items-center gap-3">
                   <span className="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-gradient-to-br from-accent/25 to-accent2/15 text-lg text-accent shadow-[0_0_18px_-6px_rgba(0,255,153,0.6)] ring-1 ring-accent/30 transition-colors duration-300 group-hover:ring-accent/60">
