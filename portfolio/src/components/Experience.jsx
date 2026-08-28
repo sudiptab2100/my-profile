@@ -7,42 +7,9 @@ import {
   useReducedMotion,
 } from "framer-motion";
 import { FiBriefcase, FiCalendar, FiMapPin } from "react-icons/fi";
-import { SiAmericanexpress } from "react-icons/si";
 import { experience } from "../data/portfolio";
 import { Reveal, Section, SectionHeading } from "./ui";
 import { SpotlightCard } from "./aceternity/spotlight-card";
-
-// Confident react-icons/si brand logos; other companies fall back to initials.
-const brandLogos = {
-  "American Express": SiAmericanexpress,
-};
-
-function initialsOf(company) {
-  return company
-    .split(/\s+/)
-    .map((word) => word[0])
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
-}
-
-function CompanyMonogram({ company }) {
-  const Logo = brandLogos[company];
-  return (
-    <span className="relative flex h-12 w-12 flex-none items-center justify-center rounded-2xl bg-gradient-to-br from-accent to-accent2 p-px shadow-glow">
-      <span className="flex h-full w-full items-center justify-center rounded-[15px] bg-primary">
-        {Logo ? (
-          <Logo className="text-xl text-accent" aria-hidden="true" />
-        ) : (
-          <span className="text-gradient font-mono text-sm font-bold">
-            {initialsOf(company)}
-          </span>
-        )}
-      </span>
-      <span className="sr-only">{company}</span>
-    </span>
-  );
-}
 
 export default function Experience() {
   const reduce = useReducedMotion();
@@ -102,32 +69,24 @@ export default function Experience() {
                   </span>
 
                   <SpotlightCard className="group glass p-6 transition-all duration-300 hover:border-accent/50 hover:bg-white/[0.06]">
-                    <div
-                      className={`flex items-start gap-4 ${
-                        flipped ? "xl:flex-row-reverse" : ""
-                      }`}
-                    >
-                      <CompanyMonogram company={job.company} />
-
-                      <div className="min-w-0 flex-1">
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-accent/10 px-3 py-1 font-mono text-xs uppercase tracking-widest text-accent ring-1 ring-accent/30">
-                          <FiCalendar className="text-sm" /> {job.period}
+                    <div className="min-w-0">
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-accent/10 px-3 py-1 font-mono text-xs uppercase tracking-widest text-accent ring-1 ring-accent/30">
+                        <FiCalendar className="text-sm" /> {job.period}
+                      </span>
+                      <h3 className="h3 mt-2 text-white transition-colors group-hover:text-accent">
+                        {job.company}
+                      </h3>
+                      <div
+                        className={`mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-white/70 ${
+                          flipped ? "xl:justify-end" : ""
+                        }`}
+                      >
+                        <span className="inline-flex items-center gap-2 font-semibold text-white/90">
+                          <FiBriefcase className="text-accent" /> {job.role}
                         </span>
-                        <h3 className="h3 mt-2 text-white transition-colors group-hover:text-accent">
-                          {job.role}
-                        </h3>
-                        <div
-                          className={`mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-white/70 ${
-                            flipped ? "xl:justify-end" : ""
-                          }`}
-                        >
-                          <span className="inline-flex items-center gap-2 font-semibold text-white">
-                            <FiBriefcase className="text-accent" /> {job.company}
-                          </span>
-                          <span className="inline-flex items-center gap-2 text-sm">
-                            <FiMapPin /> {job.location}
-                          </span>
-                        </div>
+                        <span className="inline-flex items-center gap-2 text-sm">
+                          <FiMapPin /> {job.location}
+                        </span>
                       </div>
                     </div>
 

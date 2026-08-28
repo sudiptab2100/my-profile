@@ -73,7 +73,7 @@ export default {
       },
       animation: {
         spinRing: "spinRing 22s linear infinite",
-        orbit: "spinRing 14s linear infinite",
+        orbit: "spinRing 6s linear infinite",
         floaty: "floaty 6s ease-in-out infinite",
         scroll:
           "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",

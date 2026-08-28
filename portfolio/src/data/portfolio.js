@@ -64,7 +64,7 @@ export const experience = [
   },
   {
     company: "Nethermind",
-    role: "Blockchain Developer & Researcher Intern",
+    role: "R&D Engineer Intern",
     location: "London, UK (Remote)",
     period: "Jun 2024 - Aug 2024",
     points: [
