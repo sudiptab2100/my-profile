@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { FiDownload, FiBriefcase } from "react-icons/fi";
 import {
@@ -47,18 +47,18 @@ const TECH_POOL = [
   { Icon: SiCplusplus, label: "C/C++", color: "#6c9bd1" },
 ];
 
-// Eight anchor points around the avatar (compass layout). Only a few are
-// occupied at any moment; logos pop in and out of these slots at random.
-const SLOTS = [
-  "left-2 top-6 xl:-left-4 xl:top-10",
-  "left-1/2 -translate-x-1/2 -top-3 xl:-top-4",
-  "right-2 top-6 xl:right-0 xl:top-10",
-  "-right-3 top-1/2 -translate-y-1/2 xl:-right-7",
-  "right-3 bottom-6 xl:right-0 xl:bottom-10",
-  "left-1/2 -translate-x-1/2 -bottom-3 xl:-bottom-4",
-  "left-3 bottom-6 xl:left-0 xl:bottom-10",
-  "-left-3 top-1/2 -translate-y-1/2 xl:-left-7",
-];
+// Eight evenly-spaced anchor points around the avatar, described as angles
+// (radians, starting at the top and going clockwise). Only a few are occupied
+// at any moment; logos pop in and out of these slots at random. Their pixel
+// positions are computed on a circle just outside the photo (see OrbitingTech).
+const SLOT_ANGLES = Array.from(
+  { length: 8 },
+  (_, i) => -Math.PI / 2 + (i * Math.PI) / 4,
+);
+
+// Clearance (px) between a badge's inner edge and the photo edge. Increase to
+// push every logo further from the avatar; decrease to bring them closer.
+const LOGO_CLEARANCE = 12;
 
 const shuffle = (arr) => {
   const a = [...arr];
@@ -71,20 +71,40 @@ const shuffle = (arr) => {
 
 function OrbitingTech() {
   const reduce = useReducedMotion();
-  const [slots, setSlots] = useState(() => SLOTS.map(() => null));
+  const layerRef = useRef(null);
+  const [radius, setRadius] = useState(150);
+  const [slots, setSlots] = useState(() => SLOT_ANGLES.map(() => null));
+
+  // Keep every logo a uniform minor distance outside the photo, at any size.
+  useEffect(() => {
+    const el = layerRef.current;
+    if (!el) return undefined;
+    const measure = () => {
+      const size = el.offsetWidth;
+      if (!size) return;
+      const halfBadge = size >= 320 ? 28 : 22;
+      setRadius(size / 2 + halfBadge + LOGO_CLEARANCE);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   useEffect(() => {
     if (reduce) {
       // Static, calm subset — no cycling for reduced-motion users.
       const picks = shuffle(TECH_POOL).slice(0, 4);
-      setSlots(SLOTS.map((_, i) => (i % 2 === 0 ? picks[i / 2] ?? null : null)));
+      setSlots(
+        SLOT_ANGLES.map((_, i) => (i % 2 === 0 ? picks[i / 2] ?? null : null)),
+      );
       return undefined;
     }
 
     // Seed ~4 logos in random slots.
     setSlots(() => {
-      const arr = SLOTS.map(() => null);
-      const openSlots = shuffle(SLOTS.map((_, i) => i)).slice(0, 4);
+      const arr = SLOT_ANGLES.map(() => null);
+      const openSlots = shuffle(SLOT_ANGLES.map((_, i) => i)).slice(0, 4);
       const techs = shuffle(TECH_POOL);
       openSlots.forEach((slot, k) => {
         arr[slot] = techs[k];
@@ -127,48 +147,49 @@ function OrbitingTech() {
   }, [reduce]);
 
   return (
-    <>
-      {SLOTS.map((pos, i) => {
-        const tech = slots[i];
-        return (
-          <div
-            key={pos}
-            aria-hidden="true"
-            className={`pointer-events-none absolute z-30 ${pos}`}
-          >
-            <AnimatePresence mode="wait">
-              {tech && (
-                <motion.div
-                  key={tech.label}
-                  initial={{ opacity: 0, scale: 0.2 }}
-                  animate={
-                    reduce
-                      ? { opacity: 1, scale: 1 }
-                      : { opacity: 1, scale: 1, y: [0, -6, 0] }
-                  }
-                  exit={{ opacity: 0, scale: 0.2 }}
-                  transition={{
-                    opacity: { duration: 0.4 },
-                    scale: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
-                    y: {
-                      duration: 3.6 + (i % 4) * 0.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    },
-                  }}
-                  className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.07] shadow-glass backdrop-blur-md xl:h-14 xl:w-14"
-                >
-                  <tech.Icon
-                    className="text-lg xl:text-2xl"
-                    style={{ color: tech.color }}
-                  />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        );
-      })}
-    </>
+    <div ref={layerRef} className="pointer-events-none absolute inset-0 z-30">
+      <div className="absolute inset-0 animate-orbit motion-reduce:animate-none">
+        {SLOT_ANGLES.map((angle, i) => {
+          const tech = slots[i];
+          const x = Math.cos(angle) * radius;
+          const y = Math.sin(angle) * radius;
+          return (
+            <div
+              key={angle}
+              aria-hidden="true"
+              className="absolute left-1/2 top-1/2"
+              style={{
+                transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
+              }}
+            >
+              {/* Counter-rotate: the badge revolves with the ring yet stays upright. */}
+              <div className="animate-orbitReverse motion-reduce:animate-none">
+                <AnimatePresence mode="wait">
+                  {tech && (
+                    <motion.div
+                      key={tech.label}
+                      initial={{ opacity: 0, scale: 0.2 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.2 }}
+                      transition={{
+                        opacity: { duration: 0.4 },
+                        scale: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+                      }}
+                      className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.07] shadow-glass backdrop-blur-md xl:h-14 xl:w-14"
+                    >
+                      <tech.Icon
+                        className="text-lg xl:text-2xl"
+                        style={{ color: tech.color }}
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
